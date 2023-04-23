@@ -1,6 +1,6 @@
 <template>
     <Navigation />
-    <div class="space-y-12 lg:px-40 px-2">
+    <div class="lg:px-40 px-2">
         <router-view></router-view>
     </div>
     <Player />
