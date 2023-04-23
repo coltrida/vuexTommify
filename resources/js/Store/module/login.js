@@ -16,6 +16,10 @@ const getters = {
         return state.idUser;
     },
 
+    getToken(state){
+        return state.token;
+    },
+
     getUsername(state){
         return state.username;
     },
@@ -45,7 +49,10 @@ const actions = {
     },*/
 
     async login({commit}, payload){
-        const response = await axios.get(`${help().linklogin}`+'/'+payload.email+'/'+payload.password);
+        const response = await axios.post(`${help().linklogin}`, {
+            'email': payload.email,
+            'password': payload.password,
+        });
 
         commit('login', response.data);
     },
@@ -53,15 +60,15 @@ const actions = {
     async register({commit}, payload){
         const response = await axios.post(`${help().linkregister}`, {
             'email': payload.email,
-            'oldPassword': payload.oldPassword,
+            'name': payload.name,
             'password': payload.password,
-            'repeatpassword': payload.repeatpassword,
+            'role': payload.role,
         });
         commit('login', response.data);
     },
 
-    async logout({commit}, id){
-        await axios.get(`${help().linklogout}`+'/'+id, {
+    async logout({commit}, token){
+        await axios.get(`${help().linklogout}`+'/'+token, {
             headers: {
                 'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
             }
@@ -86,16 +93,16 @@ const actions = {
 const mutations = {
     login(state, payload){
 
-        if (payload.stato === 'successo'){
+        if (payload.status === true){
             sessionStorage.setItem('user-token', payload.token);
-            sessionStorage.setItem('username', payload.user.name);
+            /*sessionStorage.setItem('username', payload.user.name);
             sessionStorage.setItem('idUser', payload.user.id);
-            sessionStorage.setItem('rl', payload.user.ruolo_id);
+            sessionStorage.setItem('rl', payload.user.ruolo_id);*/
 
             state.token = sessionStorage.getItem('user-token');
-            state.username = sessionStorage.getItem('username');
+            /*state.username = sessionStorage.getItem('username');
             state.idUser = sessionStorage.getItem('idUser');
-            state.ruolo = payload.user.ruolo.nome;
+            state.ruolo = payload.user.ruolo.nome;*/
             state.messaggio = '';
         }else{
             state.messaggio = payload.message

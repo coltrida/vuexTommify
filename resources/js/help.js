@@ -9,7 +9,9 @@ const help = () => {
     }
     return {
         linkusers: base+'users',
-        linkregister: base+'register',
+        linkregister: base+'auth/register',
+        linklogin: base+'auth/login',
+        linklogout: base+'auth/logout',
     };
 };
 export default help;

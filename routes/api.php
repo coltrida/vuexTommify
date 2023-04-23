@@ -9,11 +9,10 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-
-
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::get('/auth/logout/{token}', [AuthController::class, 'logout']);
+Route::get('/getUserFromToken/{token}', [AuthController::class, 'getUserFromToken']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users', [UserController::class, 'index']);

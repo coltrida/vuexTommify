@@ -61,9 +61,9 @@
                                        :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                                 </MenuItem>-->
                                 <MenuItem v-slot="{ active }">
-                                    <router-link to="/logout"
+                                    <li @click="runLogout"
                                        :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
-                                        out</router-link>
+                                        out</li>
                                 </MenuItem>
                             </MenuItems>
                         </transition>
@@ -109,12 +109,18 @@ import {Bars3Icon, BellIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 
 const store = useStore()
 const logged = computed(() => store.getters['login/getLogged'])
+const token = computed(() => store.getters['login/getToken'])
+
+function runLogout() {
+   // console.log(token.value)
+    store.dispatch('login/logout', token.value);
+}
 
 const navigation = [
     {name: 'Home', href: '/', current: true},
-    {name: 'Login', href: '/login', current: false},
-    {name: 'Register', href: '/register', current: false},
-    {name: 'Calendar', href: '#', current: false},
+    {name: 'My Artist', href: '/myartists', current: false},
+    {name: 'My Albums', href: '/myalbums', current: false},
+    {name: 'My favorites', href: '/favorites', current: false},
 ]
 </script>
 
