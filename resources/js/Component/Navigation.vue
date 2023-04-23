@@ -103,17 +103,19 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
+const router = useRouter()
 
 import {Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue'
-import {Bars3Icon, BellIcon, XMarkIcon} from '@heroicons/vue/24/outline'
+import {Bars3Icon, XMarkIcon} from '@heroicons/vue/24/outline'
 
 const store = useStore()
 const logged = computed(() => store.getters['login/getLogged'])
 const token = computed(() => store.getters['login/getToken'])
 
 function runLogout() {
-   // console.log(token.value)
     store.dispatch('login/logout', token.value);
+    router.push({ path: '/' })
 }
 
 const navigation = [

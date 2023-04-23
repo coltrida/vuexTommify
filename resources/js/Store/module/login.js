@@ -4,7 +4,8 @@ const state = () => ({
     token: sessionStorage.getItem('user-token') || '',
     username: sessionStorage.getItem('username') || '',
     idUser: sessionStorage.getItem('idUser') || '',
-    messaggio: '',
+    messaggioErroreEmail: [],
+    messaggioErrorePassword: [],
     ruolo: sessionStorage.getItem('rl') || '',
     user: {}
 });
@@ -12,27 +13,31 @@ const state = () => ({
 const getters = {
     getLogged: state => !!state.token,
 
-    getIdUser(state){
+    getIdUser(state) {
         return state.idUser;
     },
 
-    getToken(state){
+    getToken(state) {
         return state.token;
     },
 
-    getUsername(state){
+    getUsername(state) {
         return state.username;
     },
 
-    getMessaggio(state){
-        return state.messaggio;
+    getMessaggioErroreEmail(state) {
+        return state.messaggioErroreEmail;
     },
 
-    getUser(state){
+    getMessaggioErrorePassword(state) {
+        return state.messaggioErrorePassword;
+    },
+
+    getUser(state) {
         return state.user;
     },
 
-    getRuolo(state){
+    getRuolo(state) {
         return state.ruolo;
     },
 
@@ -48,16 +53,14 @@ const actions = {
         commit('login', response.data);
     },*/
 
-    async login({commit}, payload){
-        const response = await axios.post(`${help().linklogin}`, {
+    login({commit}, payload) {
+        axios.post(`${help().linklogin}`, {
             'email': payload.email,
             'password': payload.password,
-        });
-
-        commit('login', response.data);
+        }).then(response => commit('loginOk', response.data)).catch(error => commit('loginError', error));
     },
 
-    async register({commit}, payload){
+    async register({commit}, payload) {
         const response = await axios.post(`${help().linkregister}`, {
             'email': payload.email,
             'name': payload.name,
@@ -67,23 +70,23 @@ const actions = {
         commit('login', response.data);
     },
 
-    async logout({commit}, token){
-        await axios.get(`${help().linklogout}`+'/'+token, {
+    async logout({commit}, token) {
+        await axios.get(`${help().linklogout}` + '/' + token, {
             headers: {
-                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+                'Authorization': `Bearer ` + sessionStorage.getItem('user-token')
             }
         });
         commit('logout');
     },
 
-    async resetMessaggio({commit}){
+    async resetMessaggio({commit}) {
         commit('resetMessaggio');
     },
 
-    async fetchUser({commit}, id){
-        const response = await axios.get(`${help().linkuser}`+'/'+id, {
+    async fetchUser({commit}, id) {
+        const response = await axios.get(`${help().linkuser}` + '/' + id, {
             headers: {
-                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+                'Authorization': `Bearer ` + sessionStorage.getItem('user-token')
             }
         });
         commit('fetchUser', response.data);
@@ -91,25 +94,22 @@ const actions = {
 };
 
 const mutations = {
-    login(state, payload){
+    loginOk(state, payload) {
+        sessionStorage.setItem('user-token', payload.token);
+        state.token = sessionStorage.getItem('user-token');
+    },
 
-        if (payload.status === true){
-            sessionStorage.setItem('user-token', payload.token);
-            /*sessionStorage.setItem('username', payload.user.name);
-            sessionStorage.setItem('idUser', payload.user.id);
-            sessionStorage.setItem('rl', payload.user.ruolo_id);*/
-
-            state.token = sessionStorage.getItem('user-token');
-            /*state.username = sessionStorage.getItem('username');
-            state.idUser = sessionStorage.getItem('idUser');
-            state.ruolo = payload.user.ruolo.nome;*/
-            state.messaggio = '';
-        }else{
-            state.messaggio = payload.message
+    loginError(state, payload) {
+        //console.log(payload.response.data.errors)
+        if (payload.response.data.errors['email']){
+            state.messaggioErroreEmail = payload.response.data.errors['email']
+        }
+        if (payload.response.data.errors['password']){
+            state.messaggioErrorePassword = payload.response.data.errors['password']
         }
     },
 
-    logout(state){
+    logout(state) {
         sessionStorage.removeItem('user-token');
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('idUser');
@@ -118,18 +118,18 @@ const mutations = {
         state.username = '';
     },
 
-    resetMessaggio(state){
+    resetMessaggio(state) {
         state.messaggio = '';
     },
 
-    fetchUser(state, payload){
+    fetchUser(state, payload) {
         state.user = payload;
         state.ruolo = payload.ruolo.nome;
     }
 };
 
-export default{
-    namespaced:true,
+export default {
+    namespaced: true,
     state,
     getters,
     actions,
