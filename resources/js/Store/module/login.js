@@ -60,14 +60,13 @@ const actions = {
         }).then(response => commit('loginOk', response.data)).catch(error => commit('loginError', error));
     },
 
-    async register({commit}, payload) {
-        const response = await axios.post(`${help().linkregister}`, {
+    register({commit}, payload) {
+        axios.post(`${help().linkregister}`, {
             'email': payload.email,
             'name': payload.name,
             'password': payload.password,
             'role': payload.role,
-        });
-        commit('login', response.data);
+        }).then(response => commit('loginOk', response.data)).catch(error => commit('loginError', error));
     },
 
     async logout({commit}, token) {
@@ -100,7 +99,7 @@ const mutations = {
     },
 
     loginError(state, payload) {
-        //console.log(payload.response.data.errors)
+        console.log(payload.response.data.errors)
         if (payload.response.data.errors['email']){
             state.messaggioErroreEmail = payload.response.data.errors['email']
         }

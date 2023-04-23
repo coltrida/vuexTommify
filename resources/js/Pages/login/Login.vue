@@ -31,7 +31,9 @@
 
 
                 <div class="mt-6 flex justify-center gap-x-6">
-                    <button @click="runLogin" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+                    <button @click="runLogin" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Login
+                    </button>
                 </div>
             </div>
 
@@ -68,7 +70,9 @@ export default {
 
         runLogin(){
             this.login(this.payload).then(() => {
-                this.$router.push({ path: '/' })
+                if (this.getLogged){
+                    this.$router.push({ path: '/' })
+                }
             });
         }
     },

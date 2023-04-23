@@ -20,13 +20,34 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <router-link v-for="item in navigation"
-                                         :key="item.name"
-                                         :to="item.href"
+                            <router-link
+                                         to="/"
                                          class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                         :aria-current="item.current ? 'page' : undefined">
-                                {{ item.name }}
+                                         >
+                                Home
                             </router-link>
+
+                            <router-link v-if="logged"
+                                         to="/myartists"
+                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                         >
+                                My Artist
+                            </router-link>
+
+                            <router-link v-if="logged"
+                                to="/myalbums"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                My Albums
+                            </router-link>
+
+                            <router-link v-if="logged"
+                                to="/favorites"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                My favorites
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -117,13 +138,6 @@ function runLogout() {
     store.dispatch('login/logout', token.value);
     router.push({ path: '/' })
 }
-
-const navigation = [
-    {name: 'Home', href: '/', current: true},
-    {name: 'My Artist', href: '/myartists', current: false},
-    {name: 'My Albums', href: '/myalbums', current: false},
-    {name: 'My favorites', href: '/favorites', current: false},
-]
 </script>
 
 <style scoped>
