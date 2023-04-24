@@ -2,27 +2,21 @@ import help from '../../help';
 
 const state = () => ({
     token: sessionStorage.getItem('user-token') || '',
-    username: sessionStorage.getItem('username') || '',
-    idUser: sessionStorage.getItem('idUser') || '',
     messaggioErroreEmail: [],
     messaggioErrorePassword: [],
-    ruolo: sessionStorage.getItem('rl') || '',
-    user: {}
+    user: {},
+    myArtists:[],
 });
 
 const getters = {
     getLogged: state => !!state.token,
 
-    getIdUser(state) {
-        return state.idUser;
-    },
-
     getToken(state) {
         return state.token;
     },
 
-    getUsername(state) {
-        return state.username;
+    getMyArtists(state) {
+        return state.myArtists;
     },
 
     getMessaggioErroreEmail(state) {
@@ -37,22 +31,9 @@ const getters = {
         return state.user;
     },
 
-    getRuolo(state) {
-        return state.ruolo;
-    },
-
 };
 
 const actions = {
-    /*async login({commit}, payload){
-        const response = await axios.post(`${help().linklogin}`, {
-            'email': payload.email,
-            'password': payload.password
-        });
-
-        commit('login', response.data);
-    },*/
-
     login({commit}, payload) {
         axios.post(`${help().linklogin}`, {
             'email': payload.email,
@@ -97,6 +78,7 @@ const mutations = {
         sessionStorage.setItem('user-token', payload.token);
         state.token = sessionStorage.getItem('user-token');
         state.user = payload.user
+        state.myArtists = payload.user.artistsales
     },
 
     loginError(state, payload) {
@@ -120,6 +102,7 @@ const mutations = {
 
     fetchUserFromToken(state, payload) {
         state.user = payload;
+        state.myArtists = payload.artistsales
     }
 };
 

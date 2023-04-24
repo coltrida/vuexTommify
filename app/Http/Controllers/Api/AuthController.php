@@ -36,7 +36,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::with('artistsales')->where('email', $request->email)->first();
 
             return response()->json([
                 'user' => $user,
@@ -91,7 +91,7 @@ class AuthController extends Controller
 
     public function getUserFromToken($token)
     {
-        $token = PersonalAccessToken::findToken($token);
-        return $token->tokenable;
+        $tokenFound = PersonalAccessToken::findToken($token);
+        return $tokenFound->tokenable;
     }
 }

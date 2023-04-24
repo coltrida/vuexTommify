@@ -13,6 +13,7 @@ const help = () => {
         linklogin: base+'auth/login',
         linklogout: base+'auth/logout',
         linkgetuserfromtoken: base+'getUserFromToken',
+        linkgetallartists: base+'getAllArtists',
     };
 };
 export default help;

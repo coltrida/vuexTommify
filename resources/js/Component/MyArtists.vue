@@ -15,37 +15,16 @@
         :modules="modules"
         class="mySwiper"
     >
-        <swiper-slide
-        ><img
-            src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide
-        ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img
-        src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide
-    ><swiper-slide
-    ><img src="https://swiperjs.com/demos/images/nature-9.jpg"
-    /></swiper-slide>
+        <swiper-slide v-for="artist in getMyArtists" :key="artist.id"
+        >
+            <h2>{{artist.name}}</h2>
+            <img src="/images/disco.jpg"></swiper-slide
+        >
     </swiper>
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -64,6 +43,29 @@ export default {
             modules: [EffectCoverflow, Pagination],
         };
     },
+
+    mounted() {
+        if (this.getMyArtists.length === 0){
+            this.fetchData();
+        }
+    },
+
+    methods:{
+        ...mapActions('login', {
+            fetchUserFromToken:'fetchUserFromToken',
+        }),
+
+        fetchData(){
+            this.fetchUserFromToken(this.getToken);
+        }
+    },
+
+    computed:{
+        ...mapGetters('login', {
+            getMyArtists:'getMyArtists',
+            getToken:'getToken',
+        }),
+    }
 }
 </script>
 
@@ -78,7 +80,7 @@ export default {
     background-position: center;
     background-size: cover;
     width: 300px;
-    height: 300px;
+    height: 350px;
 }
 
 .swiper-slide img {

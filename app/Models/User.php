@@ -61,6 +61,8 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
+    protected $with = ['artistsales'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
