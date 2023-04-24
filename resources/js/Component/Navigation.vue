@@ -57,7 +57,6 @@
                     <Menu as="div" class="relative ml-3" v-if="logged">
 
                         <div>
-<!--                            {{ user.name }}-->
                             <MenuButton
                                 class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="sr-only">Open user menu</span>

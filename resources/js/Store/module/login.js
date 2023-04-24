@@ -96,10 +96,10 @@ const mutations = {
     loginOk(state, payload) {
         sessionStorage.setItem('user-token', payload.token);
         state.token = sessionStorage.getItem('user-token');
+        state.user = payload.user
     },
 
     loginError(state, payload) {
-        //console.log(payload.response.data.errors)
         if (payload.response.data.errors['email']){
             state.messaggioErroreEmail = payload.response.data.errors['email']
         }
@@ -110,11 +110,8 @@ const mutations = {
 
     logout(state) {
         sessionStorage.removeItem('user-token');
-        sessionStorage.removeItem('username');
-        sessionStorage.removeItem('idUser');
-        sessionStorage.removeItem('rl');
         state.token = '';
-        state.username = '';
+        state.user = {}
     },
 
     resetMessaggio(state) {
