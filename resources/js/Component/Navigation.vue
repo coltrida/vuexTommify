@@ -27,21 +27,21 @@
                                 Home
                             </router-link>
 
-                            <router-link v-if="logged"
+                            <router-link v-if="logged && user.role === 'user' "
                                          to="/myartists"
                                          class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                                          >
                                 My Artist
                             </router-link>
 
-                            <router-link v-if="logged"
+                            <router-link v-if="logged && user.role === 'user'"
                                 to="/myalbums"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 My Albums
                             </router-link>
 
-                            <router-link v-if="logged"
+                            <router-link v-if="logged && user.role === 'user'"
                                 to="/favorites"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                             >
@@ -55,10 +55,13 @@
 
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3" v-if="logged">
+
                         <div>
+<!--                            {{ user.name }}-->
                             <MenuButton
                                 class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="sr-only">Open user menu</span>
+                                <span class="text-amber-50 mr-3">{{ user.name }}</span>
                                 <img class="h-8 w-8 rounded-full"
                                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                      alt=""/>
@@ -122,7 +125,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
 const router = useRouter()
@@ -133,11 +136,17 @@ import {Bars3Icon, XMarkIcon} from '@heroicons/vue/24/outline'
 const store = useStore()
 const logged = computed(() => store.getters['login/getLogged'])
 const token = computed(() => store.getters['login/getToken'])
+const user = computed(() => store.getters['login/getUser'])
 
 function runLogout() {
     store.dispatch('login/logout', token.value);
     router.push({ path: '/' })
 }
+
+onMounted(() => {
+    store.dispatch('login/fetchUserFromToken', token.value);
+})
+
 </script>
 
 <style scoped>

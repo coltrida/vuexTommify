@@ -70,9 +70,9 @@ export default {
 
         runLogin(){
             this.login(this.payload).then(() => {
-                if (this.getLogged){
+
                     this.$router.push({ path: '/' })
-                }
+
             });
         }
     },

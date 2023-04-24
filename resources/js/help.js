@@ -12,6 +12,7 @@ const help = () => {
         linkregister: base+'auth/register',
         linklogin: base+'auth/login',
         linklogout: base+'auth/logout',
+        linkgetuserfromtoken: base+'getUserFromToken',
     };
 };
 export default help;

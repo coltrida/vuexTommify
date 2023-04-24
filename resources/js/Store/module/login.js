@@ -82,13 +82,13 @@ const actions = {
         commit('resetMessaggio');
     },
 
-    async fetchUser({commit}, id) {
-        const response = await axios.get(`${help().linkuser}` + '/' + id, {
+    async fetchUserFromToken({commit}, token) {
+        const response = await axios.get(`${help().linkgetuserfromtoken}` + '/' + token, {
             headers: {
                 'Authorization': `Bearer ` + sessionStorage.getItem('user-token')
             }
         });
-        commit('fetchUser', response.data);
+        commit('fetchUserFromToken', response.data);
     },
 };
 
@@ -99,7 +99,7 @@ const mutations = {
     },
 
     loginError(state, payload) {
-        console.log(payload.response.data.errors)
+        //console.log(payload.response.data.errors)
         if (payload.response.data.errors['email']){
             state.messaggioErroreEmail = payload.response.data.errors['email']
         }
@@ -121,9 +121,8 @@ const mutations = {
         state.messaggio = '';
     },
 
-    fetchUser(state, payload) {
+    fetchUserFromToken(state, payload) {
         state.user = payload;
-        state.ruolo = payload.ruolo.nome;
     }
 };
 
