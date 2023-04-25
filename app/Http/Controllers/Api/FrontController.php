@@ -12,4 +12,9 @@ class FrontController extends Controller
     {
         return $artistServices->lista();
     }
+
+    public function getArtistWithAlbums($idArtist, ArtistServices $artistServices)
+    {
+        return $artistServices->artistConAlbum($idArtist);
+    }
 }

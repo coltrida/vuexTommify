@@ -46,7 +46,7 @@ import { EffectCoverflow, Pagination } from "swiper";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-    name: "AllArtists",
+    name: "AllArtistsComponent",
     components: {
         Swiper,
         SwiperSlide,

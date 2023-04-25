@@ -8,11 +8,11 @@
 <script>
 
 import {mapGetters} from "vuex";
-import HomeUser from "../Component/HomeUser.vue";
-import HomeArtist from "../Component/HomeArtist.vue";
+import HomeUser from "../Component/HomeUserComponent.vue";
+import HomeArtist from "../Component/HomeArtistComponent.vue";
 
 export default {
-    name: "Home",
+    name: "HomePage",
     components: {HomeArtist, HomeUser},
     mounted() {
 

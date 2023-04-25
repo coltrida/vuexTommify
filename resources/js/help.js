@@ -14,6 +14,7 @@ const help = () => {
         linklogout: base+'auth/logout',
         linkgetuserfromtoken: base+'getUserFromToken',
         linkgetallartists: base+'getAllArtists',
+        linkgetartistwithalbums: base+'getArtistWithAlbums',
     };
 };
 export default help;

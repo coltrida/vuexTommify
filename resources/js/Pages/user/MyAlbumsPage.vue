@@ -1,10 +1,10 @@
 <template>
-    <h2>Album of Artist</h2>
+    <h2>My Albums</h2>
 </template>
 
 <script>
 export default {
-    name: "AlbumsOfArtist"
+    name: "MyAlbumsPage"
 }
 </script>
 

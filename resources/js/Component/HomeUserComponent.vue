@@ -8,10 +8,10 @@
 
 <script>
 
-import MyArtists from "./MyArtists.vue";
-import AllArtists from "./AllArtists.vue";
+import MyArtists from "./MyArtistsComponent.vue";
+import AllArtists from "./AllArtistsComponent.vue";
 export default {
-    name: "HomeUser",
+    name: "HomeUserComponent",
     components: {AllArtists, MyArtists},
 }
 </script>

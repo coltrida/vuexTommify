@@ -1,10 +1,11 @@
 const routes = [
-    { path: '/', component: () => import('../Pages/Home.vue'), name: 'home' },
+    { path: '/', component: () => import('../Pages/HomePage.vue'), name: 'home' },
     { path: '/login', component: () => import('../Pages/login/Login.vue'), name: 'login' },
     { path: '/register', component: () => import('../Pages/login/Register.vue'), name: 'register' },
-    { path: '/favorites', component: () => import('../Pages/user/Favorites.vue'), name: 'favorites' },
-    { path: '/myalbums', component: () => import('../Pages/user/Myalbums.vue'), name: 'myalbums' },
-    { path: '/myartists', component: () => import('../Pages/user/Myartists.vue'), name: 'myartists' },
+    { path: '/favorites', component: () => import('../Pages/user/FavoritesPage.vue'), name: 'favorites' },
+    { path: '/myalbums', component: () => import('../Pages/user/MyAlbumsPage.vue'), name: 'myalbums' },
+    { path: '/myartists', component: () => import('../Pages/user/MyArtistsPage.vue'), name: 'myartists' },
+    { path: '/albums/:idArtist', component: () => import('../Pages/user/AlbumsOfArtistPage.vue'), name: 'albumsOfArtist' },
 ];
 
 export default routes;
