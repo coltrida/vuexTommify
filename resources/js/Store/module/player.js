@@ -15,7 +15,9 @@ const actions = {
 };
 
 const mutations = {
-
+    switchShaffle(state) {
+        state.visibile = !state.visibile;
+    },
 };
 
 export default{

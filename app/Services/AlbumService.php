@@ -10,7 +10,7 @@ class AlbumService
 {
     public function insert($request)
     {
-        $productStripe = $this->saveAlbumStripe($request);
+     //   $productStripe = $this->saveAlbumStripe($request);
         $album = Album::create([
             'name' => $request->name,
             'artist_id' => $request->artist_id,
@@ -82,5 +82,19 @@ class AlbumService
     public function albumsOfArtist($idArtist)
     {
         return Artist::with('albums')->find($idArtist)->albums;
+    }
+
+    public function statisticFirstThreeAlbumSales()
+    {
+        return Album::with('albumsales')
+            ->withCount('albumsales')
+            ->orderBy('albumsales_count', 'desc')
+            ->limit(3)
+            ->get();
+    }
+
+    public function findAlbum($request)
+    {
+        return Album::with('artist')->where('name', 'like', '%'.$request->nameToFind.'%')->get();
     }
 }

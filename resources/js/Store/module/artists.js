@@ -26,6 +26,11 @@ const actions = {
         const response = await axios.get(`${help().linkgetartistwithalbums}` + '/' + idArtist);
         commit('fetchArtistWithAlbums', response.data);
     },
+
+    async findArtist({commit}, payload){
+        const response = await axios.post(`${help().linkfindartist}`, payload);
+        commit('findArtist', response.data);
+    },
 };
 
 const mutations = {
@@ -35,6 +40,10 @@ const mutations = {
 
     fetchArtistWithAlbums(state, payload){
         state.artistWithAlbums = payload;
+    },
+
+    findArtist(state, payload){
+        state.allArtists = payload;
     },
 };
 

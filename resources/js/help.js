@@ -15,6 +15,12 @@ const help = () => {
         linkgetuserfromtoken: base+'getUserFromToken',
         linkgetallartists: base+'getAllArtists',
         linkgetartistwithalbums: base+'getArtistWithAlbums',
+        linkfinduser: base+'findUser',
+        linkfindartist: base+'findArtist',
+        linkfindalbum: base+'findAlbum',
+        linkstatisticfirstthreealbumsales: base+'statisticFirstThreeAlbumSales',
+        linkgetalbums: base+'albums',
+        linkdeleteuser: base+'deleteUser',
     };
 };
 export default help;

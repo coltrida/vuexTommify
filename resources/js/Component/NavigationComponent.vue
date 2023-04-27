@@ -48,6 +48,27 @@
                                 My favorites
                             </router-link>
 
+                            <router-link v-if="logged && user.role === 'admin'"
+                                         to="/admin/users"
+                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                Users
+                            </router-link>
+
+                            <router-link v-if="logged && user.role === 'admin'"
+                                         to="/admin/artists"
+                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                Artists
+                            </router-link>
+
+                            <router-link v-if="logged && user.role === 'admin'"
+                                         to="/admin/albums"
+                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                Albums
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -60,7 +81,7 @@
                             <MenuButton
                                 class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="sr-only">Open user menu</span>
-                                <span class="text-amber-50 mr-3">{{ user.name }}</span>
+                                <span class="text-amber-50 mr-3 pt-1">{{ user.name }}</span>
                                 <img class="h-8 w-8 rounded-full"
                                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                      alt=""/>

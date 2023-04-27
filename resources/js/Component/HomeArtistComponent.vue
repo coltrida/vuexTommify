@@ -1,10 +1,22 @@
 <template>
-    <h2>Home Artist</h2>
+    <InsertAlbumComponent />
+    <AlbumsOfArtistComponent :idArtist="getUser.artist.id"/>
 </template>
 
 <script>
+import InsertAlbumComponent from "./InsertAlbumComponent.vue";
+import {mapGetters} from "vuex";
+import AlbumsOfArtistComponent from "./AlbumsOfArtistComponent.vue";
 export default {
-    name: "HomeArtistComponent"
+    name: "HomeArtistComponent",
+
+    components: {AlbumsOfArtistComponent, InsertAlbumComponent},
+
+    computed:{
+        ...mapGetters('login', {
+            getUser:'getUser',
+        }),
+    }
 }
 </script>
 

@@ -10,7 +10,7 @@ class ArtistServices
 {
     public function lista()
     {
-        return Artist::withCount('albums')->orderBy('name')->get();
+        return Artist::with('albums')->withCount('albums')->orderBy('name')->get();
     }
 
     public function listaConAlbum()
@@ -75,5 +75,10 @@ class ArtistServices
         } catch (\Exception $exception){
             print_r($exception);
         }
+    }
+
+    public function findArtist($request)
+    {
+        return Artist::where('name', 'like', '%'.$request->nameToFind.'%')->get();
     }
 }

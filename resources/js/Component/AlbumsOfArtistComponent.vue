@@ -1,4 +1,5 @@
 <template>
+    <h2 class="flex justify-center text-3xl">Album of {{ getArtistWithAlbums.name }}</h2>
     <swiper
         :effect="'coverflow'"
         :grabCursor="true"
@@ -15,12 +16,9 @@
         :modules="modules"
         class="mySwiper"
     >
-        <swiper-slide v-for="artist in getMyArtists" :key="artist.id">
-            <router-link
-                :to="/albums/+artist.id">
-                <h2>{{artist.name}}</h2>
-                <img src="/images/disco.jpg">
-            </router-link>
+        <swiper-slide v-for="album in getArtistWithAlbums.albums" :key="album.id">
+            <h2>{{album.name}}</h2>
+            <img :src=coverLink(album.id)>
         </swiper-slide>
     </swiper>
 </template>
@@ -35,7 +33,8 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
 export default {
-    name: "MyArtistsComponent",
+    name: "AlbumsOfArtistComponent",
+
     components: {
         Swiper,
         SwiperSlide,
@@ -46,26 +45,30 @@ export default {
         };
     },
 
+    props:['idArtist'],
+
     mounted() {
-        if (this.getMyArtists.length === 0){
-            this.fetchData();
-        }
+        this.fetchData();
     },
 
     methods:{
-        ...mapActions('login', {
-            fetchUserFromToken:'fetchUserFromToken',
+        ...mapActions('artists', {
+            fetchArtistWithAlbums:'fetchArtistWithAlbums',
         }),
 
         fetchData(){
-            this.fetchUserFromToken(this.getToken);
+            //   console.log('ciao '+this.$route.params.idArtist)
+            this.fetchArtistWithAlbums(this.idArtist);
+        },
+
+        coverLink(albumId){
+            return '/storage/covers/'+albumId+'.jpg';
         }
     },
 
     computed:{
-        ...mapGetters('login', {
-            getMyArtists:'getMyArtists',
-            getToken:'getToken',
+        ...mapGetters('artists', {
+            getArtistWithAlbums:'getArtistWithAlbums',
         }),
     }
 }
@@ -81,11 +84,8 @@ export default {
 .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 320px;
+    width: 300px;
     height: 350px;
-    border: 1px solid #9f9e9e;
-    box-shadow: 3px 3px 3px;
-    padding: 3px;
 }
 
 .swiper-slide img {
@@ -93,3 +93,4 @@ export default {
     width: 100%;
 }
 </style>
+

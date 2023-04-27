@@ -17,4 +17,9 @@ class FrontController extends Controller
     {
         return $artistServices->artistConAlbum($idArtist);
     }
+
+    public function findArtist(Request $request, ArtistServices $artistServices)
+    {
+        return $artistServices->findArtist($request);
+    }
 }

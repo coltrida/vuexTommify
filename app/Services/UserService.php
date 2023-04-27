@@ -6,8 +6,18 @@ use App\Models\User;
 
 class UserService
 {
-    public function list()
+    public function listUtenti()
     {
-        return User::get();
+        return User::ute()->get();
+    }
+
+    public function findUser($request)
+    {
+        return User::ute()->where('name', 'like', '%'.$request->nameToFind.'%')->get();
+    }
+
+    public function deleteUser($idUser)
+    {
+        User::find($idUser)->delete();
     }
 }
