@@ -52,7 +52,7 @@ class AlbumService
 
     }
 
-    public function delete($idAlbum)
+    public function deleteAlbum($idAlbum)
     {
         $album = Album::with('songs')->find($idAlbum);
         if (count($album->songs) > 0){
@@ -64,9 +64,14 @@ class AlbumService
         Album::destroy($idAlbum);
     }
 
-    public function albumConSongs($idAlbum)
+    /*public function albumConSongs($idAlbum)
     {
         return Album::with('songs', 'artist')->where('id', $idAlbum)->get();
+    }*/
+
+    public function albumConSongs($idAlbum)
+    {
+        return Album::with('songs', 'artist')->find($idAlbum);
     }
 
     public function albumsConSongs()

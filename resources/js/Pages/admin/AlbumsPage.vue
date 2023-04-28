@@ -43,13 +43,16 @@
             </div>
         </li>
     </ul>
+
+    <MessageComponent v-if="showDelete" :soggetto="albumDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import MessageComponent from "../../Component/MessageComponent.vue";
 export default {
     name: "AlbumsPage",
-
+    components: {MessageComponent},
     mounted() {
         this.fetchAllAlbums();
     },
@@ -59,6 +62,8 @@ export default {
             payload:{
                 nameToFind:''
             },
+            showDelete:false,
+            albumDelete:{}
         }
     },
 
@@ -66,6 +71,7 @@ export default {
         ...mapActions('albums', {
             fetchAllAlbums: 'fetchAllAlbums',
             findAlbum: 'findAlbum',
+            deleteAlbum: 'deleteAlbum',
         }),
 
         fotoAlbum(album){
@@ -82,12 +88,22 @@ export default {
         },
 
         runDeleteAlbum(album){
-
+            this.showDelete = true;
+            this.albumDelete = album;
         },
 
         runShowSongs(album){
 
-        }
+        },
+
+        confirmDelete(){
+            this.deleteAlbum(this.albumDelete.id);
+            this.showDelete = false;
+        },
+
+        confirmCancel(){
+            this.showDelete = false;
+        },
     },
 
     computed:{

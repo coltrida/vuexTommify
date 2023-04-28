@@ -21,6 +21,10 @@ const help = () => {
         linkstatisticfirstthreealbumsales: base+'statisticFirstThreeAlbumSales',
         linkgetalbums: base+'albums',
         linkdeleteuser: base+'deleteUser',
+        linkdeleteartist: base+'deleteArtist',
+        linkdeletealbum: base+'deleteAlbum',
+        linkgetalbumwithsongs: base+'getSongsOfAlbum',
+        linkdeletesong: base+'deleteSong',
     };
 };
 export default help;

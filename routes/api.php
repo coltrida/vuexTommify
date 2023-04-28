@@ -17,6 +17,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/getAllArtists', [FrontController::class, 'getAllArtists']);
 Route::post('/findArtist', [FrontController::class, 'findArtist']);
 Route::get('/getArtistWithAlbums/{idArtist}', [FrontController::class, 'getArtistWithAlbums']);
+Route::get('/getSongsOfAlbum/{idAlbum}', [FrontController::class, 'getSongsOfAlbum']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -30,6 +31,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/statisticFirstThreeAlbumSales', [AdminController::class, 'statisticFirstThreeAlbumSales']);
     Route::get('/albums', [AdminController::class, 'albums']);
     Route::post('/findAlbum', [AdminController::class, 'findAlbum']);
+    Route::delete('/deleteArtist/{idArtist}', [AdminController::class, 'deleteArtist']);
+    Route::delete('/deleteAlbum/{idAlbum}', [AdminController::class, 'deleteAlbum']);
+    Route::delete('/deleteSong/{idSong}', [AdminController::class, 'deleteSong']);
 
     // ------------------------- Artist ---------------------------//
     Route::post('/album/create', [UserController::class, 'createAlbum']);

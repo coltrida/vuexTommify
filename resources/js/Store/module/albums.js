@@ -39,10 +39,10 @@ const actions = {
         commit('findAlbum', response.data);
     },
 
-    async fetchAlbumsOfArtists({commit}){
+    /*async fetchAlbumsOfArtists({commit}){
         const response = await axios.get(`${help().linkgetallartists}`);
         commit('fetchAllArtists', response.data);
-    },
+    },*/
 
     async fetchStatisticFirstThreeAlbumSales({commit}){
         const response = await axios.get(`${help().linkstatisticfirstthreealbumsales}`, {
@@ -51,6 +51,15 @@ const actions = {
             }
         });
         commit('fetchStatisticFirstThreeAlbumSales', response.data);
+    },
+
+    async deleteAlbum({commit}, idAlbum){
+        await axios.delete(`${help().linkdeletealbum}` + '/' + idAlbum, {
+            headers: {
+                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+            }
+        });
+        commit('deleteAlbum', idAlbum);
     },
 };
 
@@ -63,13 +72,17 @@ const mutations = {
         state.allAlbums = payload;
     },
 
-    fetchAlbumsOfArtists(state, payload){
+    /*fetchAlbumsOfArtists(state, payload){
         state.allArtists = payload;
-    },
+    },*/
 
     fetchStatisticFirstThreeAlbumSales(state, payload){
         state.firstThreeAlbumSales = payload;
     },
+
+    deleteAlbum(state, idAlbum){
+        state.allAlbums = state.allAlbums.filter(u => u.id !== idAlbum);
+    }
 };
 
 export default{

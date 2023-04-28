@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\AlbumService;
 use App\Services\ArtistServices;
 use Illuminate\Http\Request;
 
@@ -21,5 +22,10 @@ class FrontController extends Controller
     public function findArtist(Request $request, ArtistServices $artistServices)
     {
         return $artistServices->findArtist($request);
+    }
+
+    public function getSongsOfAlbum($idAlbum, AlbumService $albumService)
+    {
+        return $albumService->albumConSongs($idAlbum);
     }
 }

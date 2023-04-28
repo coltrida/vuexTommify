@@ -48,6 +48,11 @@ class SongService
         } catch (\Exception $exception) {
             print_r($exception);
         }
+    }
 
+    public function deleteSong($idSong)
+    {
+        Storage::disk('public')->delete("/songs/$idSong.mp3");
+        Song::find($idSong)->delete();
     }
 }

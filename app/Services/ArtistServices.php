@@ -10,7 +10,12 @@ class ArtistServices
 {
     public function lista()
     {
-        return Artist::with('albums')->withCount('albums')->orderBy('name')->get();
+        return Artist::with(['albums' => function($q){
+            $q->with('songs');
+        }])
+            ->withCount('albums')
+            ->orderBy('name')
+            ->get();
     }
 
     public function listaConAlbum()
@@ -81,4 +86,12 @@ class ArtistServices
     {
         return Artist::where('name', 'like', '%'.$request->nameToFind.'%')->get();
     }
+
+    public function deleteArtist($idArtist)
+    {
+        $artist = Artist::with('user')->find($idArtist);
+        $artist->user()->delete();
+        $artist->delete();
+    }
+
 }

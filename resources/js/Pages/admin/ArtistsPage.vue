@@ -48,15 +48,19 @@
             </li>
         </ul>
     </div>
+
+    <MessageComponent v-if="showDelete" :soggetto="artistDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import AlbumsOfArtistPage from "../admin/AlbumsOfArtistPage.vue";
+import MessageComponent from "../../Component/MessageComponent.vue";
 export default {
     name: "ArtistsPage",
 
-    components: {AlbumsOfArtistPage},
+    components: {MessageComponent, AlbumsOfArtistPage},
 
     mounted() {
         this.fetchAllArtists();
@@ -68,7 +72,9 @@ export default {
                 nameToFind:''
             },
             artistWithAlbumToShow:{},
-            showArtistWithAlbum: false
+            showArtistWithAlbum: false,
+            showDelete:false,
+            artistDelete:{}
         }
     },
 
@@ -76,6 +82,7 @@ export default {
         ...mapActions('artists', {
             fetchAllArtists: 'fetchAllArtists',
             findArtist: 'findArtist',
+            deleteArtist: 'deleteArtist',
         }),
 
         runFindArtist(){
@@ -92,7 +99,8 @@ export default {
         },
 
         runDeleteArtist(artist){
-
+            this.showDelete = true;
+            this.artistDelete = artist;
         },
 
         runShowAlbums(artist){
@@ -102,7 +110,16 @@ export default {
 
         backToArtists(){
             this.showArtistWithAlbum = false;
-        }
+        },
+
+        confirmDelete(){
+            this.deleteArtist(this.artistDelete.id);
+            this.showDelete = false;
+        },
+
+        confirmCancel(){
+            this.showDelete = false;
+        },
     },
 
     computed:{

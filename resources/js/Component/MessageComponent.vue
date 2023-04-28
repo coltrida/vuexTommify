@@ -15,9 +15,9 @@
                                         <ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
                                     </div>
                                     <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Delete account - {{userDelete.userDelete.name}}</DialogTitle>
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Delete account - {{soggetto.soggetto.name}}</DialogTitle>
                                         <div class="mt-2">
-                                            <p class="text-sm text-gray-500">Are you Sure to Delete {{userDelete.userDelete.name}} ?</p>
+                                            <p class="text-sm text-gray-500">Are you Sure to Delete {{soggetto.soggetto.name}} ?</p>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@ function CancelConfirm() {
     emit('confirmCancel')
 }
 
-const userDelete = defineProps({
-    userDelete: Object
+const soggetto = defineProps({
+    soggetto: Object
 })
 </script>
