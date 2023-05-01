@@ -102,14 +102,22 @@ export default {
                 store.commit('player/switchVisible');
             }
 
+            // ----- è la prima volta oppure un nuovo play ------- //
             if (song.id !== this.idSongPlayed){
+                if (song.id == this.getAudio.meta){
+                    // ----- play stessa canzone ------- //
+                    store.commit('player/playAudio');
+                }else{
+                    // ----- play nuova canzone ------- //
+                    store.commit('player/setAudio', song);
+                    console.log(this.getAudio)
+                }
                 this.idSongPlayed = song.id;
             } else {
+                // ----- pausa stessa canzone ------- //
                 this.idSongPlayed = '';
+                store.commit('player/pauseAudio')
             }
-
-            store.commit('player/fetchPlayList', [song]);
-            store.commit('player/setAudio');
         }
     },
 
@@ -120,6 +128,7 @@ export default {
         ...mapGetters('player', {
             getVisibile: 'getVisibile',
             getPlaySong: 'getPlaySong',
+            getAudio: 'getAudio',
         }),
     }
 }

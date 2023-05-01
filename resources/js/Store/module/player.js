@@ -4,7 +4,7 @@ const state = () => ({
     visibile:false,
     playSong:false,
     playList:[],
-    audio:[]
+    audio:{}
 });
 
 const getters = {
@@ -42,15 +42,22 @@ const mutations = {
         state.playList = payload;
     },
 
-    setAudio(state) {
-        state.audio = [];
-        state.audio.cancel();
-        for (let index=0; index<state.playList.length; index++){
-            state.audio[index] = new Audio();
-            state.audio[index].src = '/storage/songs/'+state.playList[index].id + '.mp3';
-            state.audio[index].play();
+    setAudio(state, song) {
+        if (!state.audio.src){
+            state.audio = new Audio();
         }
+        state.audio.meta = song.id;
+        state.audio.src = '/storage/songs/'+song.id + '.mp3';
+        state.audio.play();
     },
+
+    pauseAudio(state){
+        state.audio.pause();
+    },
+
+    playAudio(state){
+        state.audio.play();
+    }
 };
 
 export default{
