@@ -9,8 +9,5 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function createAlbum(Request $request, AlbumService $albumService)
-    {
-        $albumService->insert($request);
-    }
+
 }

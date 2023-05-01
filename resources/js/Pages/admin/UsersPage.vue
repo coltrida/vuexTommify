@@ -1,5 +1,6 @@
 <template>
     <div class="sm:col-span-3">
+        <h2 class="flex justify-center text-3xl">Users</h2>
         <div class="flex space-x-2 my-3">
             <input v-model="payload.nameToFind" autocomplete="find" placeholder="find User"
                    class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
@@ -38,14 +39,17 @@
 
     <MessageComponent v-if="showDelete" :soggetto="userDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
 
+    <InfoComponent v-if="showInfo" :soggetto="userDelete" @closeInfo="closeInfo"/>
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import MessageComponent from "../../Component/MessageComponent.vue";
+import InfoComponent from "../../Component/InfoComponent.vue";
 export default {
     name: "UsersPage",
-    components: {MessageComponent},
+    components: {InfoComponent, MessageComponent},
 
     mounted() {
         this.fetchUsers();
@@ -57,6 +61,7 @@ export default {
                 nameToFind:'',
             },
             showDelete:false,
+            showInfo:false,
             userDelete:{}
         }
     },
@@ -85,10 +90,15 @@ export default {
         confirmDelete(){
             this.deleteUser(this.userDelete.id);
             this.showDelete = false;
+            this.showInfo = true;
         },
 
         confirmCancel(){
             this.showDelete = false;
+        },
+
+        closeInfo(){
+            this.showInfo = false;
         },
     },
 

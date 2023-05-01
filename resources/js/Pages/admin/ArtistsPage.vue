@@ -4,6 +4,7 @@
     </div>
     <div v-else>
         <div class="sm:col-span-3">
+            <h2 class="flex justify-center text-3xl">Artists</h2>
             <div class="flex space-x-2 my-3">
                 <input v-model="payload.nameToFind" autocomplete="find" placeholder="find Artist"
                        class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
@@ -51,16 +52,18 @@
 
     <MessageComponent v-if="showDelete" :soggetto="artistDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
 
+    <InfoComponent v-if="showInfo" :soggetto="artistDelete" @closeInfo="closeInfo"/>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import AlbumsOfArtistPage from "../admin/AlbumsOfArtistPage.vue";
 import MessageComponent from "../../Component/MessageComponent.vue";
+import InfoComponent from "../../Component/InfoComponent.vue";
 export default {
     name: "ArtistsPage",
 
-    components: {MessageComponent, AlbumsOfArtistPage},
+    components: {InfoComponent, MessageComponent, AlbumsOfArtistPage},
 
     mounted() {
         this.fetchAllArtists();
@@ -74,6 +77,7 @@ export default {
             artistWithAlbumToShow:{},
             showArtistWithAlbum: false,
             showDelete:false,
+            showInfo:false,
             artistDelete:{}
         }
     },
@@ -115,10 +119,15 @@ export default {
         confirmDelete(){
             this.deleteArtist(this.artistDelete.id);
             this.showDelete = false;
+            this.showInfo = true;
         },
 
         confirmCancel(){
             this.showDelete = false;
+        },
+
+        closeInfo(){
+            this.showInfo = false;
         },
     },
 

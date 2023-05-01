@@ -9,7 +9,7 @@ class SongService
 {
     public function save($request)
     {
-        $productStripe = $this->saveSongStripe($request);
+       // $productStripe = $this->saveSongStripe($request);
         $song = Song::create([
             'name' => $request->name,
             'cost' => (float)$request->cost,
@@ -23,6 +23,8 @@ class SongService
             Storage::disk('public')->putFileAs('/songs', $file, $filename);
           //  $file->storeAs('songs',$filename, 's3');
         }
+
+        return $song;
     }
 
     public function saveSongStripe($request)

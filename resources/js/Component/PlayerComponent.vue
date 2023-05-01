@@ -1,15 +1,30 @@
 <template>
     <div class="flex justify-center">
-        <audio controls >
-            <source src="./01.mp3" type="audio/mpeg">
+        <h2>Player</h2>
+<!--        <audio controls autoplay>
+            <source v-for="song in getPlayList" :key="song.id" :src="linkSong(song)" type="audio/mpeg">
             Your browser does not support the audio element.
-        </audio>
+        </audio>-->
     </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-    name: "PlayerComponent"
+    name: "PlayerComponent",
+
+    methods:{
+        linkSong(song){
+            return '/storage/songs/' + song.id + '.mp3'
+        }
+    },
+
+    computed:{
+        ...mapGetters('player', {
+            getPlayList: 'getPlayList',
+        }),
+    }
 }
 </script>
 

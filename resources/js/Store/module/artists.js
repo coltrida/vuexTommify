@@ -58,6 +58,23 @@ const actions = {
         });
         commit('deleteSongOfAlbumOfArtist', payload);
     },
+
+    async addAlbumOfArtist({commit}, payload){
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data' ,
+                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+            }
+        };
+        let formData = new FormData();
+        formData.append('cover', payload.fileUp);
+        formData.append('name', payload.name);
+        formData.append('cost', payload.cost);
+        formData.append('artist_id', payload.artist_id);
+
+        const response = await axios.post(`${help().linkaddalbum}`, formData, config);
+        commit('addAlbumOfArtist', response.data);
+    },
 };
 
 const mutations = {
@@ -85,6 +102,10 @@ const mutations = {
     deleteSongOfAlbumOfArtist(state, payload){
         state.allArtists.find(u => u.id === payload.idArtist).albums.find(v => v.id === payload.idAlbum).songs =
             state.allArtists.find(u => u.id === payload.idArtist).albums.find(v => v.id === payload.idAlbum).songs.filter(u => u.id !== payload.idSong);
+    },
+
+    addAlbumOfArtist(state, payload){
+        state.artistWithAlbums.albums.unshift(payload);
     }
 };
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AlbumController;
+use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FrontController;
 use App\Http\Controllers\Api\UserController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/deleteSong/{idSong}', [AdminController::class, 'deleteSong']);
 
     // ------------------------- Artist ---------------------------//
-    Route::post('/album/create', [UserController::class, 'createAlbum']);
+    Route::post('/album/create', [ArtistController::class, 'createAlbum']);
+    Route::post('/album/create/addSong', [ArtistController::class, 'addSong']);
 });
 

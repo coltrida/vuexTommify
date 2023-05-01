@@ -1,6 +1,6 @@
 <template>
     <div v-if="showSongsOfAlbum">
-        <SongsOfAlbumPage :albumWithSongsToShow="albumWithSongsToShow" @backToAlbum="backToAlbum"/>
+        <SongsOfAlbumOfArtistComponent :albumWithSongsToShow="albumWithSongsToShow" @backToAlbum="backToAlbum"/>
     </div>
     <div v-else>
         <div class="sm:col-span-3">
@@ -45,15 +45,18 @@
 
     <MessageComponent v-if="showDelete" :soggetto="albumDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
 
+    <InfoComponent v-if="showInfo" :soggetto="albumDelete" @closeInfo="closeInfo"/>
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import MessageComponent from "../../Component/MessageComponent.vue";
-import SongsOfAlbumPage from "./SongsOfAlbumPage.vue";
+import SongsOfAlbumOfArtistComponent from "../../Component/SongsOfAlbumOfArtistComponent.vue";
+import InfoComponent from "../../Component/InfoComponent.vue";
 export default {
     name: "AlbumOfArtistPage",
-    components: {SongsOfAlbumPage, MessageComponent},
+    components: {InfoComponent, SongsOfAlbumOfArtistComponent, MessageComponent},
     emits:['backToArtists'],
 
     props:['artistWithAlbumToShow'],
@@ -61,6 +64,7 @@ export default {
     data(){
         return{
             showDelete:false,
+            showInfo:false,
             albumDelete:{},
             showSongsOfAlbum:false,
             albumWithSongsToShow:{}
@@ -100,6 +104,7 @@ export default {
                 'idArtist':this.artistWithAlbumToShow.id,
             });
             this.showDelete = false;
+            this.showInfo = true;
         },
 
         confirmCancel(){
@@ -108,6 +113,10 @@ export default {
 
         backToAlbum(){
             this.showSongsOfAlbum = false;
+        },
+
+        closeInfo(){
+            this.showInfo = false;
         },
     },
 

@@ -42,7 +42,7 @@ class ArtistServices
     public function artistConAlbum($idArtist)
     {
         return Artist::with(['albums' => function($q){
-            $q->withCount('songs')->withCount('albumsales');
+            $q->with('songs')->withCount('songs')->withCount('albumsales')->latest();
         }])->orderBy('name')->find($idArtist);
     }
 

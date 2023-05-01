@@ -1,74 +1,86 @@
 <template>
-    <h2 class="flex justify-center text-3xl">Album of {{ getArtistWithAlbums.name }}</h2>
-    <swiper
-        :effect="'coverflow'"
-        :grabCursor="true"
-        :centeredSlides="true"
-        :slidesPerView="'auto'"
-        :coverflowEffect="{
+        <h2 class="flex justify-center text-3xl">Album of {{ getArtistWithAlbums.name }}</h2>
+        <swiper
+            :effect="'coverflow'"
+            :grabCursor="true"
+            :centeredSlides="true"
+            :slidesPerView="'auto'"
+            :coverflowEffect="{
       rotate: 50,
       stretch: 0,
       depth: 100,
       modifier: 1,
       slideShadows: true,
     }"
-        :pagination="true"
-        :modules="modules"
-        class="mySwiper"
-    >
-        <swiper-slide v-for="album in getArtistWithAlbums.albums" :key="album.id">
-            <h2>{{album.name}}</h2>
-            <img :src=coverLink(album.id)>
-        </swiper-slide>
-    </swiper>
+            :pagination="true"
+            :modules="modules"
+            class="mySwiper"
+        >
+            <swiper-slide v-for="album in getArtistWithAlbums.albums" :key="album.id">
+                <router-link :to="{ name: 'artistAddSong', params: { idAlbum: album.id }}">
+                    <h2>{{ album.name }}</h2>
+                    <img :src=coverLink(album.id)>
+                </router-link>
+            </swiper-slide>
+        </swiper>
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
-import { Swiper, SwiperSlide } from "swiper/vue";
+import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import { EffectCoverflow, Pagination } from "swiper";
+import {EffectCoverflow, Pagination} from "swiper";
+import SongsOfAlbumComponent from "./SongsOfAlbumOfArtistComponent.vue";
 
 export default {
     name: "AlbumsOfArtistComponent",
 
     components: {
+        SongsOfAlbumComponent,
         Swiper,
         SwiperSlide,
     },
+
+    data(){
+        return{
+
+        }
+    },
+
     setup() {
         return {
             modules: [EffectCoverflow, Pagination],
         };
     },
 
-    props:['idArtist'],
+    props: ['idArtist'],
 
     mounted() {
         this.fetchData();
     },
 
-    methods:{
+    methods: {
         ...mapActions('artists', {
-            fetchArtistWithAlbums:'fetchArtistWithAlbums',
+            fetchArtistWithAlbums: 'fetchArtistWithAlbums',
         }),
 
-        fetchData(){
-            //   console.log('ciao '+this.$route.params.idArtist)
+        fetchData() {
             this.fetchArtistWithAlbums(this.idArtist);
         },
 
-        coverLink(albumId){
-            return '/storage/covers/'+albumId+'.jpg';
-        }
+        coverLink(albumId) {
+            return '/storage/covers/' + albumId + '.jpg';
+        },
+
     },
 
-    computed:{
+    computed: {
         ...mapGetters('artists', {
-            getArtistWithAlbums:'getArtistWithAlbums',
+            getArtistWithAlbums: 'getArtistWithAlbums',
         }),
     }
 }

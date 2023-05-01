@@ -25,6 +25,8 @@ const help = () => {
         linkdeletealbum: base+'deleteAlbum',
         linkgetalbumwithsongs: base+'getSongsOfAlbum',
         linkdeletesong: base+'deleteSong',
+        linkaddalbum: base+'album/create',
+        linkaddsong: base+'album/create/addSong',
     };
 };
 export default help;

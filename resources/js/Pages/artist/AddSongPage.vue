@@ -1,18 +1,23 @@
 <template>
     <div class="pb-12">
-        <h2 class="text-base font-semibold leading-7 text-gray-900">Insert Album</h2>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Insert Song for {{ getAlbumWithSongs.name }} Album</h2>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div class="sm:col-span-3 py-8">
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Album Name</label>
+            <div class="sm:col-span-3 py-2">
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Song Name</label>
                 <div class="mt-2">
                     <input v-model="payload.name" autocomplete="name"
+                           class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                </div>
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Cost</label>
+                <div class="mt-2">
+                    <input v-model="payload.cost" autocomplete="name"
                            class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                 </div>
             </div>
 
             <div class="sm:col-span-3">
-                <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
+                <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Mp3</label>
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-2">
                     <div class="text-center">
                         <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -21,11 +26,11 @@
                         <div class="mt-4 flex text-sm leading-6 text-gray-600">
                             <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                 <span>Upload a file</span>
-                                <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                <input id="file-upload" v-on:change="loadImg" type="file" class="sr-only" accept=".mp3">
                             </label>
                             <p class="pl-1">or drag and drop</p>
                         </div>
-                        <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                        <p class="text-xs leading-5 text-gray-600">MP3 format</p>
                     </div>
                 </div>
             </div>
@@ -33,50 +38,70 @@
         </div>
 
         <div class="mt-6 flex justify-center gap-x-6">
-            <button @click="runCreateAlbum"
+            <button @click="runInsertSong"
                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Create
+                Insert
             </button>
         </div>
     </div>
+
+    <div v-if="album.id">
+        <songs-of-album-component :albumWithSongsToShow="album"/>
+    </div>
+
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import SongsOfAlbumComponent from "../../Component/SongsOfAlbumComponent.vue";
 
 export default {
-    name: "InsertAlbumComponent",
-
-    data() {
-        return {
-            payload: [
-                'email',
-                'password'
-            ],
+    name: "AddSongPage",
+    components: {SongsOfAlbumComponent},
+    data(){
+        return{
+            payload: {
+                'name' : '',
+                'cost' : '',
+                'fileUp' : {},
+                'album_id' : this.$route.params.idAlbum,
+            },
+            album: {}
         }
     },
 
     mounted() {
-        if (this.getLogged) {
-            this.$router.push({path: '/'})
-        }
+        this.fetchData();
     },
 
-    methods: {
-        ...mapActions('login', {
-            login: 'login',
+    methods:{
+        ...mapActions('albums', {
+            fetchAlbumWithSongs:'fetchAlbumWithSongs',
+            addSong:'addSong',
         }),
 
-        runCreateAlbum() {
+        fetchData(){
+            this.fetchAlbumWithSongs(this.payload.album_id).then(() => {this.album = this.getAlbumWithSongs});
+        },
 
-        }
+        loadImg(e){
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.payload.fileUp = files[0];
+        },
+
+        runInsertSong(){
+            this.addSong(this.payload).then(() => {
+                this.payload = {}
+            });
+        },
     },
 
-    computed: {
-        ...mapGetters('login', {
-            getMessaggioErroreEmail: 'getMessaggioErroreEmail',
-            getMessaggioErrorePassword: 'getMessaggioErrorePassword',
-            getLogged: 'getLogged',
+    computed:{
+        ...mapGetters('albums', {
+            getAlbumWithSongs: 'getAlbumWithSongs',
         }),
     }
 }

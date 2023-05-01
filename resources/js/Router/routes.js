@@ -10,6 +10,9 @@ const routes = [
     { path: '/admin/artists', component: () => import('../Pages/admin/ArtistsPage.vue'), name: 'adminArtists' },
     { path: '/admin/albums', component: () => import('../Pages/admin/AlbumsPage.vue'), name: 'adminAlbums' },
     { path: '/admin/albums/:artist', component: () => import('../Pages/admin/AlbumsOfArtistPage.vue'), name: 'adminAlbumsOfArtist' },
+    { path: '/artist/albums', component: () => import('../Pages/artist/AlbumsPage.vue'), name: 'artistAlbums' },
+    { path: '/artist/newAlbum', component: () => import('../Pages/artist/AddAlbumPage.vue'), name: 'artistNewAlbum' },
+    { path: '/artist/addSong/:idAlbum', component: () => import('../Pages/artist/AddSongPage.vue'), name: 'artistAddSong' },
 ];
 
 export default routes;
