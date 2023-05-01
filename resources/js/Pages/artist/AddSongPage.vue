@@ -1,5 +1,5 @@
 <template>
-    <div class="pb-12">
+    <div class="pb-12" v-if="getUser.role === 'artist'">
         <h2 class="text-base font-semibold leading-7 text-gray-900">Insert Song for {{ getAlbumWithSongs.name }} Album</h2>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -102,6 +102,10 @@ export default {
     computed:{
         ...mapGetters('albums', {
             getAlbumWithSongs: 'getAlbumWithSongs',
+        }),
+
+        ...mapGetters('login', {
+            getUser: 'getUser',
         }),
     }
 }

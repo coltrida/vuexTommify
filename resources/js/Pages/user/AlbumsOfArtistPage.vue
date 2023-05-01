@@ -1,13 +1,13 @@
 <template>
-    <AlbumsOfArtistComponent :idArtist="this.$route.params.idArtist"/>
+    <MyAlbumsOfArtistComponent :idArtist="this.$route.params.idArtist"/>
 </template>
 
 <script>
 
-import AlbumsOfArtistComponent from "../../Component/AlbumsOfArtistComponent.vue";
+import MyAlbumsOfArtistComponent from "../../Component/MyAlbumsOfArtistComponent.vue";
 export default {
     name: "AlbumsOfArtistPage",
-    components: {AlbumsOfArtistComponent},
+    components: {MyAlbumsOfArtistComponent},
 }
 </script>
 

@@ -15,6 +15,7 @@ const help = () => {
         linkgetuserfromtoken: base+'getUserFromToken',
         linkgetallartists: base+'getAllArtists',
         linkgetartistwithalbums: base+'getArtistWithAlbums',
+        linkgetartistwithmyalbums: base+'getArtistWithMyAlbums',
         linkfinduser: base+'findUser',
         linkfindartist: base+'findArtist',
         linkfindalbum: base+'findAlbum',

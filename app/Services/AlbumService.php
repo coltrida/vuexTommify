@@ -10,7 +10,7 @@ class AlbumService
 {
     public function insert($request)
     {
-     //   $productStripe = $this->saveAlbumStripe($request);
+        $productStripe = $this->saveAlbumStripe($request);
         $album = Album::create([
             'name' => $request->name,
             'artist_id' => $request->artist_id,

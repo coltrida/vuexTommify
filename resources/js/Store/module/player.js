@@ -57,7 +57,12 @@ const mutations = {
 
     playAudio(state){
         state.audio.play();
-    }
+    },
+
+    destroyAudio(state){
+        state.audio.pause();
+        state.audio = {};
+    },
 };
 
 export default{

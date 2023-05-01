@@ -174,6 +174,10 @@ const user = computed(() => store.getters['login/getUser'])
 
 function runLogout() {
     store.dispatch('login/logout', token.value);
+    if (store.getters["player/getVisibile"]) {
+        store.commit('player/switchVisible')
+        store.commit('player/destroyAudio')
+    }
     router.push({ path: '/' })
 }
 

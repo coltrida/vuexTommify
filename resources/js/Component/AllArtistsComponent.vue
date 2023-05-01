@@ -100,6 +100,9 @@ export default {
     background-size: cover;
     width: 300px;
     height: 350px;
+    border: 1px solid #9f9e9e;
+    box-shadow: 3px 3px 3px;
+    padding: 3px;
 }
 
 .swiper-slide img {

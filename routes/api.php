@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FrontController;
@@ -21,7 +20,7 @@ Route::get('/getArtistWithAlbums/{idArtist}', [FrontController::class, 'getArtis
 Route::get('/getSongsOfAlbum/{idAlbum}', [FrontController::class, 'getSongsOfAlbum']);
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group([], function () {
     Route::get('/auth/logout/{token}', [AuthController::class, 'logout']);
     Route::get('/getUserFromToken/{token}', [AuthController::class, 'getUserFromToken']);
 
@@ -35,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/deleteArtist/{idArtist}', [AdminController::class, 'deleteArtist']);
     Route::delete('/deleteAlbum/{idAlbum}', [AdminController::class, 'deleteAlbum']);
     Route::delete('/deleteSong/{idSong}', [AdminController::class, 'deleteSong']);
+    Route::get('/getArtistWithMyAlbums/{idArtist}/{idUser}', [UserController::class, 'getArtistWithMyAlbums']);
 
     // ------------------------- Artist ---------------------------//
     Route::post('/album/create', [ArtistController::class, 'createAlbum']);

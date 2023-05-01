@@ -37,7 +37,7 @@ import {EffectCoverflow, Pagination} from "swiper";
 import SongsOfAlbumComponent from "./SongsOfAlbumOfArtistComponent.vue";
 
 export default {
-    name: "AlbumsOfArtistComponent",
+    name: "MyAlbumsOfArtistComponent",
 
     components: {
         SongsOfAlbumComponent,
@@ -65,11 +65,14 @@ export default {
 
     methods: {
         ...mapActions('artists', {
-            fetchArtistWithAlbums: 'fetchArtistWithAlbums',
+            fetchArtistWithMyAlbums: 'fetchArtistWithMyAlbums',
         }),
 
         fetchData() {
-            this.fetchArtistWithAlbums(this.idArtist);
+            this.fetchArtistWithMyAlbums({
+                'idArtist':this.idArtist,
+                'idUser':this.getUser.id,
+            });
         },
 
         coverLink(albumId) {
@@ -81,6 +84,9 @@ export default {
     computed: {
         ...mapGetters('artists', {
             getArtistWithAlbums: 'getArtistWithAlbums',
+        }),
+        ...mapGetters('login', {
+            getUser: 'getUser',
         }),
     }
 }

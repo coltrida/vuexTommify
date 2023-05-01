@@ -46,6 +46,15 @@ class ArtistServices
         }])->orderBy('name')->find($idArtist);
     }
 
+    public function artistConMyAlbum($idArtist, $idUser)
+    {
+        return Artist::with(['albums' => function($q) use($idUser){
+            $q->whereHas('albumsales', function ($query) use ($idUser) {
+                $query->where('user_id', $idUser);
+            })->with('songs')->withCount('songs')->withCount('albumsales')->latest();
+        }])->orderBy('name')->find($idArtist);
+    }
+
     public function insert($request)
     {
         $productStripe = $this->saveArtistStripe($request);

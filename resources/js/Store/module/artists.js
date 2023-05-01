@@ -27,6 +27,15 @@ const actions = {
         commit('fetchArtistWithAlbums', response.data);
     },
 
+    async fetchArtistWithMyAlbums({commit}, payload){
+        const response = await axios.get(`${help().linkgetartistwithmyalbums}` + '/' + payload.idArtist + '/' + payload.idUser, {
+            headers: {
+                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+            }
+        });
+        commit('fetchArtistWithAlbums', response.data);
+    },
+
     async findArtist({commit}, payload){
         const response = await axios.post(`${help().linkfindartist}`, payload);
         commit('findArtist', response.data);
