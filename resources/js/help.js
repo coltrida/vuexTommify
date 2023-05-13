@@ -9,6 +9,7 @@ const help = () => {
     }
     return {
         linkusers: base+'users',
+        linkuserspaginate: base+'usersPaginate?page=',
         linkregister: base+'auth/register',
         linklogin: base+'auth/login',
         linklogout: base+'auth/logout',

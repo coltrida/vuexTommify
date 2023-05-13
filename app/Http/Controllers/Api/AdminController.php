@@ -16,6 +16,11 @@ class AdminController extends Controller
         return $userService->listUtenti();
     }
 
+    public function usersPaginate(UserService $userService)
+    {
+        return $userService->listUtentiPaginate();
+    }
+
     public function findUser(Request $request, UserService $userService)
     {
         return $userService->findUser($request);

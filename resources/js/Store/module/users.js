@@ -1,7 +1,7 @@
 import help from "../../help";
 
 const state = () => ({
-    users: [],
+    users: {},
 });
 
 const getters = {
@@ -18,7 +18,16 @@ const actions = {
                 'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
             }
         });
-        commit('fetchUsers', response.data.data);
+        commit('fetchUsers', response.data);
+    },
+
+    async fetchUsersPagination({commit}, page){
+        const response = await axios.get(`${help().linkuserspaginate}` + page,{
+            headers: {
+                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+            }
+        });
+        commit('fetchUsers', response.data);
     },
 
     async findUser({commit}, payload){
@@ -50,7 +59,7 @@ const mutations = {
     },
 
     deleteUser(state, idUser){
-        state.users = state.users.filter(u => u.id !== idUser);
+        state.users.data = state.users.data.filter(u => u.id !== idUser);
     }
 };
 

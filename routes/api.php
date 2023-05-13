@@ -26,6 +26,7 @@ Route::group([], function () {
 
     // ------------------------- Admin ---------------------------//
     Route::get('/users', [AdminController::class, 'users']);
+    Route::get('/usersPaginate', [AdminController::class, 'usersPaginate']);
     Route::post('/findUser', [AdminController::class, 'findUser']);
     Route::delete('/deleteUser/{idUser}', [AdminController::class, 'deleteUser']);
     Route::get('/statisticFirstThreeAlbumSales', [AdminController::class, 'statisticFirstThreeAlbumSales']);
