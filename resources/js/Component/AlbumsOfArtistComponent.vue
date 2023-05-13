@@ -1,5 +1,5 @@
 <template>
-        <h2 class="flex justify-center text-3xl">Album of {{ getArtistWithAlbums.name }}</h2>
+        <h2 class="flex justify-center text-3xl">Albums of {{ getArtistWithAlbums.name }}</h2>
         <swiper
             :effect="'coverflow'"
             :grabCursor="true"

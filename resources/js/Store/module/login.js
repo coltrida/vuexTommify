@@ -47,6 +47,7 @@ const actions = {
             'name': payload.name,
             'password': payload.password,
             'role': payload.role,
+            'category': payload.category,
         }).then(response => commit('loginOk', response.data)).catch(error => commit('loginError', error));
     },
 

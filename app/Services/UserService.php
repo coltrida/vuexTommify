@@ -13,7 +13,7 @@ class UserService
 
     public function listUtentiPaginate()
     {
-        return User::ute()->paginate(10);
+        return User::ute()->latest()->paginate(10);
     }
 
     public function findUser($request)

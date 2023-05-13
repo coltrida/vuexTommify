@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,16 @@ class AuthController extends Controller
                 'role' => $request->role,
                 'password' => Hash::make($request->password)
             ]);
+
+            if ($user->role === 'artist'){
+                $artist = Artist::create([
+                    'user_id' => $user->id,
+                    'name' => $request->name,
+                    'category' => $request->category
+                ]);
+                $user = User::find($artist->user_id);
+               // $user->append(['artist' => $artist]);
+            }
 
             return response()->json([
                 'user' => $user,
