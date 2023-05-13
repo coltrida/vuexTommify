@@ -8,7 +8,7 @@ class UserService
 {
     public function listUtenti()
     {
-        return User::ute()->get();
+        return User::ute()->paginate(10);
     }
 
     public function findUser($request)

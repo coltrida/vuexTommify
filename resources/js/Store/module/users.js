@@ -18,7 +18,7 @@ const actions = {
                 'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
             }
         });
-        commit('fetchUsers', response.data);
+        commit('fetchUsers', response.data.data);
     },
 
     async findUser({commit}, payload){

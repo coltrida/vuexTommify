@@ -2,7 +2,12 @@ import help from "../../help";
 
 const state = () => ({
     visibile:false,
+    playShuffleAllArtists:false,
+    playShuffleAlbumsOfArtist:false,
+    playShuffleOfAlbum:false,
     playSong:false,
+    idArtistPlay:0,
+    idAlbumPlay:0,
     playList:[],
     audio:{}
 });
@@ -10,6 +15,26 @@ const state = () => ({
 const getters = {
     getVisibile(state){
         return state.visibile;
+    },
+
+    getIdArtistPlay(state){
+        return state.idArtistPlay;
+    },
+
+    getIdAlbumPlay(state){
+        return state.idAlbumPlay;
+    },
+
+    getPlayShuffleOfAlbum(state){
+        return state.playShuffleOfAlbum;
+    },
+
+    getPlayShuffleAllArtists(state){
+        return state.playShuffleAllArtists;
+    },
+
+    getPlayShuffleAlbumsOfArtist(state){
+        return state.playShuffleAlbumsOfArtist;
     },
 
     getPlayList(state){
@@ -32,6 +57,47 @@ const actions = {
 const mutations = {
     switchVisible(state) {
         state.visibile = !state.visibile;
+    },
+
+    runPlayShuffleAllArtists(state) {
+        state.playShuffleAllArtists = !state.playShuffleAllArtists;
+        if (state.visibile === false){
+            state.visibile = true;
+        }
+        if (state.playShuffleAlbumsOfArtist === true){
+            state.playShuffleAlbumsOfArtist = false;
+        }
+        if (state.playShuffleOfAlbum === true){
+            state.playShuffleOfAlbum = false;
+        }
+    },
+
+    runPlayShuffleAlbumsOfArtist(state, idArtist) {
+        state.playShuffleAlbumsOfArtist = !state.playShuffleAlbumsOfArtist;
+        state.idArtistPlay = idArtist;
+        if (state.visibile === false){
+            state.visibile = true;
+        }
+        if (state.playShuffleAllArtists === true){
+            state.playShuffleAllArtists = false;
+        }
+        if (state.playShuffleOfAlbum === true){
+            state.playShuffleOfAlbum = false;
+        }
+    },
+
+    runPlayShuffleOfAlbum(state, idAlbum) {
+        state.playShuffleOfAlbum = !state.playShuffleOfAlbum;
+        state.idAlbumPlay = idAlbum;
+        if (state.visibile === false){
+            state.visibile = true;
+        }
+        if (state.playShuffleAllArtists === true){
+            state.playShuffleAllArtists = false;
+        }
+        if (state.playShuffleAlbumsOfArtist === true){
+            state.playShuffleAlbumsOfArtist = false;
+        }
     },
 
     switchPlaySong(state) {

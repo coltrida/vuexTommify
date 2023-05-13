@@ -1,7 +1,27 @@
 <template>
     <div class="sm:col-span-3">
         <div class="flex space-x-2 my-3">
-            <h2 class="flex justify-center text-3xl">Songs of Album {{albumWithSongsToShow.name}}</h2>
+<!--            <h2 class="flex justify-center text-3xl">Songs of Album {{albumWithSongsToShow.name}}</h2>-->
+            <button @click="runPlayShuffle" style="box-shadow: 2px 2px 2px black"
+                    :class="getPlayShuffleOfAlbum ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600'"
+                    class="rounded-md bg-indigo-600 px-10 text-sm font-semibold text-white shadow-sm
+                hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-indigo-600">
+                <div class="flex justify-center text-3xl py-2">
+                    Songs of Album {{albumWithSongsToShow.name}}
+                    <svg v-if="getPlayShuffleOfAlbum" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3 bg-red-700">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
+                    </svg>
+
+                    <svg style="box-shadow: 2px 2px 2px black" v-else xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
+                    </svg>
+                </div>
+            </button>
+
             <button @click="backBtn" v-if="getUser.role === 'admin'"
                     class="rounded-md bg-orange-400 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 back
@@ -117,7 +137,11 @@ export default {
                 this.idSongPlayed = '';
                 store.commit('player/pauseAudio')
             }
-        }
+        },
+
+        runPlayShuffle() {
+            this.$store.commit('player/runPlayShuffleOfAlbum', this.albumWithSongsToShow.id);
+        },
     },
 
     computed:{
@@ -128,6 +152,7 @@ export default {
             getVisibile: 'getVisibile',
             getPlaySong: 'getPlaySong',
             getAudio: 'getAudio',
+            getPlayShuffleOfAlbum: 'getPlayShuffleOfAlbum',
         }),
     }
 }

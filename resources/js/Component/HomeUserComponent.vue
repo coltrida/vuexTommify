@@ -1,36 +1,47 @@
 <template>
-    <h2 class="flex justify-center mt-4 space-x-4">
-        <button @click="runPlay" style="box-shadow: 2px 2px 2px black" :class="getVisibile ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600'" class="flex rounded-md px-10 py-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            <h2 class="text-3xl">My Artists</h2>
-            <svg v-if="getVisibile" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-6 h-6 mt-2 ml-3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-            </svg>
+    <div class="flex justify-center mt-4 space-x-5">
+        <button @click="runPlay" style="box-shadow: 2px 2px 2px black"
+                :class="getPlayShuffleAllArtists ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600'"
+                class="rounded-md bg-indigo-600 px-10 text-sm font-semibold text-white shadow-sm
+                hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-indigo-600">
+            <div class="flex justify-center">
+                My Artists
+                <svg v-if="getPlayShuffleAllArtists" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3 bg-red-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
+                </svg>
 
-            <svg style="box-shadow: 2px 2px 2px black" v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-6 h-6 mt-2 ml-3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-            </svg>
+                <svg style="box-shadow: 2px 2px 2px black" v-else xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
+                </svg>
+            </div>
         </button>
 
-        <div class="sm:col-span-3 flex space-x-2">
-            <div class="mt-2">
-                <input v-model="payload.nameToFind" autocomplete="find" placeholder="Find my Artist"
-                       class="pl-2 block w-full rounded-md py-1.5 mb-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                <button @click="runFindMyArtist"
-                        class="rounded-md bg-indigo-600 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    Find
-                </button>
-                <button @click="runResetFindMyArtist"
-                        class="rounded-md bg-orange-400 hover:bg-orange-500 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    Reset
-                </button>
-            </div>
-        </div>
-    </h2>
 
-    <MyArtists />
+        <input v-model="payload.nameToFind" autocomplete="find" placeholder="Find my Artist"
+               class="pl-2 block w-full rounded-md py-1.5 mb-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
+
+        <button @click="runFindMyArtist"
+                class="rounded-md bg-indigo-600 px-10  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Find
+        </button>
+
+
+        <button @click="runResetFindMyArtist"
+                class="rounded-md bg-orange-400 hover:bg-orange-500 px-10  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Reset
+        </button>
+
+    </div>
+
+    <MyArtists/>
 
     <h2 class="flex justify-center text-3xl mt-10">All Artists</h2>
-    <AllArtists />
+    <AllArtists/>
 </template>
 
 <script>
@@ -38,41 +49,42 @@
 import MyArtists from "./MyArtistsComponent.vue";
 import AllArtists from "./AllArtistsComponent.vue";
 import {mapActions, mapGetters} from "vuex";
+
 export default {
     name: "HomeUserComponent",
 
     components: {AllArtists, MyArtists},
 
-    data(){
-        return{
-            payload:{
-                nameToFind:''
+    data() {
+        return {
+            payload: {
+                nameToFind: ''
             },
         }
     },
 
-    methods:{
+    methods: {
         ...mapActions('artists', {
             findArtist: 'findArtist',
         }),
 
-        runPlay(){
-            this.$store.commit('player/switchVisible');
+        runPlay() {
+            this.$store.commit('player/runPlayShuffleAllArtists');
         },
 
-        runFindMyArtist(){
+        runFindMyArtist() {
             this.findArtist(this.payload);
         },
 
-        runResetFindMyArtist(){
+        runResetFindMyArtist() {
             this.payload.nameToFind = '';
             this.fetchAllArtists();
         },
     },
 
-    computed:{
+    computed: {
         ...mapGetters('player', {
-            getVisibile:'getVisibile',
+            getPlayShuffleAllArtists: 'getPlayShuffleAllArtists',
         }),
     }
 }
