@@ -18,6 +18,16 @@ class ArtistServices
             ->get();
     }
 
+    public function listaPaginate()
+    {
+        return Artist::with(['albums' => function($q){
+            $q->with('songs');
+        }])
+            ->withCount('albums')
+            ->orderBy('name')
+            ->paginate(10);
+    }
+
     public function listaConAlbum()
     {
         return Artist::with(['albums' => function($q){
@@ -93,7 +103,12 @@ class ArtistServices
 
     public function findArtist($request)
     {
-        return Artist::where('name', 'like', '%'.$request->nameToFind.'%')->get();
+        return Artist::where('name', 'like', '%'.$request->nameToFind.'%')
+            ->with(['albums' => function($q){
+                $q->with('songs');
+            }])
+            ->withCount('albums')
+            ->paginate(10);
     }
 
     public function deleteArtist($idArtist)

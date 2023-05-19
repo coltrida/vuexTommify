@@ -22,6 +22,11 @@ const actions = {
         commit('fetchAllArtists', response.data);
     },
 
+    async fetchAllArtistsPaginate({commit}, page){
+        const response = await axios.get(`${help().linkgetallartistspaginate}` + page);
+        commit('fetchAllArtists', response.data);
+    },
+
     async fetchArtistWithAlbums({commit}, idArtist ){
         const response = await axios.get(`${help().linkgetartistwithalbums}` + '/' + idArtist);
         commit('fetchArtistWithAlbums', response.data);

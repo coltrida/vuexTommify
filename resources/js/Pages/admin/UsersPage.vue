@@ -21,7 +21,7 @@
                 <div class="flex gap-x-4">
                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="/images/user.png" alt="" />
                     <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name }}</p>
+                        <p class="text-sm font-semibold leading-6 text-gray-900">({{user.id}}) {{ user.name }}</p>
                         <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.email }}</p>
                     </div>
                 </div>

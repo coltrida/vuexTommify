@@ -18,13 +18,12 @@
                 </button>
             </div>
         </div>
-
         <ul role="list" class="divide-y divide-gray-100">
-            <li v-for="artist in getAllArtists.data" :key="artist.id" class="flex justify-between gap-x-6 py-5">
+            <li v-for="artist in getAllArtists" :key="artist.id" class="flex justify-between gap-x-6 py-5">
                 <div class="flex gap-x-4">
                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="/images/disco.jpg" alt="" />
                     <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">({{artist.id}}) {{ artist.name }}</p>
+                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ artist.name }}</p>
                         <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ artist.category }}</p>
                     </div>
                 </div>
@@ -49,15 +48,6 @@
                 </div>
             </li>
         </ul>
-
-        <div class="flex justify-center my-10">
-            <TailwindPagination
-                :data="getAllArtists"
-                limit="2"
-                @pagination-change-page="getResults"
-            />
-        </div>
-
     </div>
 
     <MessageComponent v-if="showDelete" :soggetto="artistDelete" @confirmDelete="confirmDelete" @confirmCancel="confirmCancel"/>
@@ -65,77 +55,12 @@
     <InfoComponent v-if="showInfo" :soggetto="artistDelete" @closeInfo="closeInfo"/>
 </template>
 
-<script setup>
-import { useStore } from 'vuex';
-import {computed, ref} from 'vue';
-import { TailwindPagination } from 'laravel-vue-pagination';
-
+<script>
+import {mapActions, mapGetters} from "vuex";
 import AlbumsOfArtistPage from "../admin/AlbumsOfArtistPage.vue";
 import MessageComponent from "../../Component/MessageComponent.vue";
 import InfoComponent from "../../Component/InfoComponent.vue";
-
-const store = useStore();
-
-const payload = ref({
-    nameToFind:''
-});
-
-let showDelete = ref(false);
-let showInfo = ref(false);
-let showArtistWithAlbum = ref(false);
-let artistWithAlbumToShow = ref({});
-let artistDelete = ref({});
-
-const getResults = (page = 1) => {
-    store.dispatch('artists/fetchAllArtistsPaginate', page);
-}
-
-function runFindArtist(){
-    store.dispatch('artists/findArtist', payload.value);
-}
-
-function runResetFind(){
-    payload.value.nameToFind = '';
-    getResults();
-}
-
-function runDeleteArtist(artist){
-    showDelete.value = true;
-    artistDelete.value = artist;
-}
-
-function runShowAlbums(artist){
-    artistWithAlbumToShow = artist;
-    showArtistWithAlbum.value = true;
-}
-
-function confirmDelete(){
-    store.dispatch('artists/deleteArtist', artistDelete.value.id);
-    showDelete.value = false;
-    showInfo.value = true;
-}
-
-function confirmCancel(){
-    showDelete.value = false;
-}
-
-function closeInfo(){
-    showInfo.value = false;
-}
-
-function backToArtists(){
-    showArtistWithAlbum.value = false;
-}
-
-function titleButton(artist){
-    return "Show Album (" + artist.albums_count + ")";
-}
-
-const getAllArtists = computed(() => store.getters['artists/getAllArtists'])
-
-getResults();
-
-/*export default {
+export default {
     name: "ArtistsPage",
 
     components: {InfoComponent, MessageComponent, AlbumsOfArtistPage},
@@ -211,7 +136,7 @@ getResults();
             getAllArtists: 'getAllArtists',
         }),
     }
-}*/
+}
 </script>
 
 <style scoped>

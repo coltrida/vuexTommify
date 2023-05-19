@@ -5,7 +5,7 @@ const help = () => {
         base = 'http://vuextommify.test/api/';
     } else {
         //console.log('web');
-        base = 'https://www.centrouditogroup.it/api/';
+        base = 'https://tommify.altervista.org/api/';
     }
     return {
         linkusers: base+'users',
@@ -15,6 +15,7 @@ const help = () => {
         linklogout: base+'auth/logout',
         linkgetuserfromtoken: base+'getUserFromToken',
         linkgetallartists: base+'getAllArtists',
+        linkgetallartistspaginate: base+'getAllArtistsPaginate?page=',
         linkgetartistwithalbums: base+'getArtistWithAlbums',
         linkgetartistwithmyalbums: base+'getArtistWithMyAlbums',
         linkfinduser: base+'findUser',

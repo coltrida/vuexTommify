@@ -15,6 +15,7 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::get('/getAllArtists', [FrontController::class, 'getAllArtists']);
+Route::get('/getAllArtistsPaginate', [FrontController::class, 'getAllArtistsPaginate']);
 Route::post('/findArtist', [FrontController::class, 'findArtist']);
 Route::get('/getArtistWithAlbums/{idArtist}', [FrontController::class, 'getArtistWithAlbums']);
 Route::get('/getSongsOfAlbum/{idAlbum}', [FrontController::class, 'getSongsOfAlbum']);

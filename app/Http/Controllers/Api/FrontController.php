@@ -14,6 +14,11 @@ class FrontController extends Controller
         return $artistServices->lista();
     }
 
+    public function getAllArtistsPaginate(ArtistServices $artistServices)
+    {
+        return $artistServices->listaPaginate();
+    }
+
     public function getArtistWithAlbums($idArtist, ArtistServices $artistServices)
     {
         return $artistServices->artistConAlbum($idArtist);

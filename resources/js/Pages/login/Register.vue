@@ -102,7 +102,7 @@ export default {
         }),
 
         runRegister(){
-            this.register(this.payload).then(() => {
+             this.register(this.payload).then(() => {
                 if (this.getLogged){
                     this.$router.push({ path: '/' })
                 }

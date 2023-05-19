@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artist;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -77,9 +78,17 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->count(50)->create();
-        /*User::factory()->count(50)->create([
+        $artists = User::factory()->count(50)->create([
             'role' => 'artist',
-        ]);*/
+        ]);
 
+        $artists->each(function ($artist){
+            Artist::create([
+                'name' => $artist->name,
+                'user_id' => $artist->id,
+                'cost' => \Arr::random([23, 44, 6, 3, 66, 43, 78]),
+                'category' => \Arr::random(['pop', 'rock', 'heavy metal', 'classic'])
+                ]);
+        });
     }
 }
