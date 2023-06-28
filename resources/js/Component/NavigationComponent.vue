@@ -77,11 +77,18 @@
                             </router-link>
 
                             <router-link v-if="logged && user.role === 'artist'"
+                                         to="/artist/addMusic"
+                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            >
+                                Add Music
+                            </router-link>
+
+<!--                            <router-link v-if="logged && user.role === 'artist'"
                                          to="/artist/newAlbum"
                                          class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 New Album
-                            </router-link>
+                            </router-link>-->
 
                         </div>
                     </div>

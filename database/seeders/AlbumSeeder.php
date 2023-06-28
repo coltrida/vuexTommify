@@ -24,34 +24,39 @@ class AlbumSeeder extends Seeder
         Album::insert([
             [
                 'name' => 'Primo Album',
+                'type' => 'A',
                 'artist_id' => $idVitali,
                 'cost' => 10,
                 'created_at' => Carbon::now()
             ],
             [
                 'name' => 'Secondo Album',
+                'type' => 'A',
                 'artist_id' => $idVitali,
                 'cost' => 14,
                 'created_at' => Carbon::now()
             ],
             [
                 'name' => 'Terzo Album',
+                'type' => 'A',
                 'artist_id' => $idVitali,
                 'cost' => 11,
                 'created_at' => Carbon::now()
             ],
             [
                 'name' => 'Alba Chiara',
+                'type' => 'A',
                 'artist_id' => $idVasco,
                 'cost' => 13,
                 'created_at' => Carbon::now()
             ],
             [
                 'name' => 'Waka Waka',
+                'type' => 'A',
                 'artist_id' => $idShakira,
                 'cost' => 12,
                 'created_at' => Carbon::now()
-            ]
+            ],
         ]);
     }
 }

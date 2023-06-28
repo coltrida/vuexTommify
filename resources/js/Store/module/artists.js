@@ -89,6 +89,24 @@ const actions = {
         const response = await axios.post(`${help().linkaddalbum}`, formData, config);
         commit('addAlbumOfArtist', response.data);
     },
+
+    async createSongOfArtist({commit}, payload){
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data' ,
+                'Authorization': `Bearer `+ sessionStorage.getItem('user-token')
+            }
+        };
+        let formData = new FormData();
+        formData.append('cover', payload.fileUp);
+        formData.append('music', payload.fileUp2);
+        formData.append('name', payload.name);
+        formData.append('cost', payload.cost);
+        formData.append('artist_id', payload.artist_id);
+
+        const response = await axios.post(`${help().linkcreatesong}`, formData, config);
+        commit('addAlbumOfArtist', response.data);
+    },
 };
 
 const mutations = {

@@ -100,7 +100,7 @@ export default {
         },
 
         runPlay() {
-            this.$store.commit('player/runPlayShuffleAlbumsOfArtist', this.idArtist);
+            this.$store.commit('player/runPlayShuffleAlbumsOfArtist', this.getArtistWithAlbums);
         },
 
     },

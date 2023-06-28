@@ -78,7 +78,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->count(50)->create();
-        $artists = User::factory()->count(50)->create([
+
+        $artists = User::factory()->count(20)->create([
             'role' => 'artist',
         ]);
 

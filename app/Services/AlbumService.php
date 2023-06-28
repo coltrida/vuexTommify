@@ -8,11 +8,33 @@ use Illuminate\Support\Facades\Storage;
 
 class AlbumService
 {
+    // crea Album
     public function insert($request)
     {
         $productStripe = $this->saveAlbumStripe($request);
         $album = Album::create([
             'name' => $request->name,
+            'type' => 'A',
+            'artist_id' => $request->artist_id,
+            'cost' => (float)$request->cost,
+            'stripe_id' => isset($productStripe->id) ? $productStripe->id : null,
+        ]);
+
+        if ($request->hasFile('cover')) {
+            $file = $request->file('cover');
+            $filename = $album->id . '.' . $file->extension();
+            Storage::disk('public')->putFileAs('/covers', $file, $filename);
+        }
+        return $album;
+    }
+
+    // Crea Album e Canzone contemporanemante
+    public function createAlbumLikeSong($request)
+    {
+        $productStripe = $this->saveAlbumStripe($request);
+        $album = Album::create([
+            'name' => $request->name,
+            'type' => 'S',
             'artist_id' => $request->artist_id,
             'cost' => (float)$request->cost,
             'stripe_id' => isset($productStripe->id) ? $productStripe->id : null,
@@ -52,6 +74,7 @@ class AlbumService
 
     }
 
+    // elimina Album
     public function deleteAlbum($idAlbum)
     {
         $album = Album::with('songs')->find($idAlbum);

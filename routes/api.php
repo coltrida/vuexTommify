@@ -39,6 +39,7 @@ Route::group([], function () {
 
     // ------------------------- Artist ---------------------------//
     Route::post('/album/create', [ArtistController::class, 'createAlbum']);
+    Route::post('/album/createSong', [ArtistController::class, 'createSong']);
     Route::post('/album/create/addSong', [ArtistController::class, 'addSong']);
 });
 

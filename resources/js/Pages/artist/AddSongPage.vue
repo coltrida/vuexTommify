@@ -94,7 +94,12 @@ export default {
 
         runInsertSong(){
             this.addSong(this.payload).then(() => {
-                this.payload = {}
+                this.payload = {
+                    'name' : '',
+                    'cost' : '',
+                    'fileUp' : {},
+                    'album_id' : this.$route.params.idAlbum,
+                }
             });
         },
     },

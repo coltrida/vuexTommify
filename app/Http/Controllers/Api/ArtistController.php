@@ -14,6 +14,14 @@ class ArtistController extends Controller
         return $albumService->insert($request);
     }
 
+    public function createSong(Request $request, AlbumService $albumService, SongService $songService)
+    {
+        $album = $albumService->createAlbumLikeSong($request);
+        $request['album_id'] = $album->id;
+        $song = $songService->save($request);
+        return [$album, $song];
+    }
+
     public function addSong(Request $request, SongService $songService)
     {
         return $songService->save($request);

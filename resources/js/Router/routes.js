@@ -12,6 +12,8 @@ const routes = [
     { path: '/admin/albums/:artist', component: () => import('../Pages/admin/AlbumsOfArtistPage.vue'), name: 'adminAlbumsOfArtist' },
     { path: '/artist/albums', component: () => import('../Pages/artist/AlbumsPage.vue'), name: 'artistAlbums' },
     { path: '/artist/newAlbum', component: () => import('../Pages/artist/AddAlbumPage.vue'), name: 'artistNewAlbum' },
+    { path: '/artist/newSong', component: () => import('../Pages/artist/CreateSongPage.vue'), name: 'artistNewSong' },
+    { path: '/artist/addMusic', component: () => import('../Pages/artist/AddMusicPage.vue'), name: 'artistAddMusic' },
     { path: '/artist/addSong/:idAlbum', component: () => import('../Pages/artist/AddSongPage.vue'), name: 'artistAddSong' },
 ];
 
