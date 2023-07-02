@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
+    public function createAlbumWithSongs(Request $request, AlbumService $albumService, SongService $songService)
+    {
+        $album = $this->createAlbum($request, $albumService);
+        $request['album_id'] = $album->id;
+        foreach ($request['songs'] as $song) {
+            $this->addSong($request, $songService);
+        }
+    }
+
     public function createAlbum(Request $request, AlbumService $albumService)
     {
         return $albumService->insert($request);

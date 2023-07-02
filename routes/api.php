@@ -38,6 +38,7 @@ Route::group([], function () {
     Route::get('/getArtistWithMyAlbums/{idArtist}/{idUser}', [UserController::class, 'getArtistWithMyAlbums']);
 
     // ------------------------- Artist ---------------------------//
+    Route::post('/album/createAlbumWithSongs', [ArtistController::class, 'createAlbumWithSongs']);
     Route::post('/album/create', [ArtistController::class, 'createAlbum']);
     Route::post('/album/createSong', [ArtistController::class, 'createSong']);
     Route::post('/album/create/addSong', [ArtistController::class, 'addSong']);

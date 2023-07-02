@@ -17,7 +17,7 @@
             class="mySwiper"
         >
             <swiper-slide v-for="album in getArtistWithAlbums.albums" :key="album.id">
-                <router-link :to="{ name: 'artistAddSong', params: { idAlbum: album.id }}">
+                <router-link :to="{ name: 'artistSongs', params: { idAlbum: album.id }}">
                     <h2>{{ album.name }}</h2>
                     <img :src=coverLink(album.id)>
                 </router-link>

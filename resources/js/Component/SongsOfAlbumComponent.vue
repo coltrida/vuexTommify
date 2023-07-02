@@ -9,16 +9,19 @@
                 focus-visible:outline-indigo-600">
                 <div class="flex justify-center text-3xl py-2">
                     Songs of Album {{albumWithSongsToShow.name}}
-                    <svg v-if="getPlayShuffleOfAlbum" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3 bg-red-700">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
-                    </svg>
+                    <div v-if="!this.uriAddSong">
+                        <svg v-if="getPlayShuffleOfAlbum" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3 bg-red-700">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
+                        </svg>
 
-                    <svg style="box-shadow: 2px 2px 2px black" v-else xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
-                    </svg>
+                        <svg v-else style="box-shadow: 2px 2px 2px black" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="border-2 w-10 h-6 mt-2 ml-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
+                        </svg>
+                    </div>
+
                 </div>
             </button>
 
@@ -140,7 +143,10 @@ export default {
         },
 
         runPlayShuffle() {
-            this.$store.commit('player/runPlayShuffleOfAlbum', this.albumWithSongsToShow);
+            if (!this.uriAddSong){
+                this.$store.commit('player/runPlayShuffleOfAlbum', this.albumWithSongsToShow);
+            }
+
         },
     },
 
@@ -154,6 +160,10 @@ export default {
             getAudio: 'getAudio',
             getPlayShuffleOfAlbum: 'getPlayShuffleOfAlbum',
         }),
+
+        uriAddSong(){
+            return this.$route.fullPath.substring(8, 15) === 'addSong'
+        },
     }
 }
 </script>

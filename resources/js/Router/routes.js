@@ -15,6 +15,7 @@ const routes = [
     { path: '/artist/newSong', component: () => import('../Pages/artist/CreateSongPage.vue'), name: 'artistNewSong' },
     { path: '/artist/addMusic', component: () => import('../Pages/artist/AddMusicPage.vue'), name: 'artistAddMusic' },
     { path: '/artist/addSong/:idAlbum', component: () => import('../Pages/artist/AddSongPage.vue'), name: 'artistAddSong' },
+    { path: '/artist/Songs/:idAlbum', component: () => import('../Pages/artist/SongsPage.vue'), name: 'artistSongs' },
 ];
 
 export default routes;
